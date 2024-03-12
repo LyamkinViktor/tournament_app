@@ -1,0 +1,91 @@
+{#{% extends 'base.html.twig' %}#}
+
+{#{% block title %}Tournament index{% endblock %}#}
+
+{#{% block body %}#}
+{#    <h1>Tournament index</h1>#}
+
+{#    <table class="table">#}
+{#        <thead>#}
+{#            <tr>#}
+{#                <th>Id</th>#}
+{#                <th>Name</th>#}
+{#                <th>Date</th>#}
+{#                <th>actions</th>#}
+{#            </tr>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#        {% for tournament in tournaments %}#}
+{#            <tr>#}
+{#                <td>{{ tournament.id }}</td>#}
+{#                <td>{{ tournament.name }}</td>#}
+{#                <td>{{ tournament.date ? tournament.date|date('Y-m-d H:i:s') : '' }}</td>#}
+{#                <td>#}
+{#                    <a href="{{ path('app_tournament_show', {'id': tournament.id}) }}">show</a>#}
+{#                    <a href="{{ path('app_tournament_edit', {'id': tournament.id}) }}">edit</a>#}
+{#                </td>#}
+{#            </tr>#}
+{#        {% else %}#}
+{#            <tr>#}
+{#                <td colspan="4">no records found</td>#}
+{#            </tr>#}
+{#        {% endfor %}#}
+{#        </tbody>#}
+{#    </table>#}
+
+{#    <a href="{{ path('app_tournament_new') }}">Create new</a>#}
+{#{% endblock %}#}
+
+
+
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Список турниров{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Список турниров</h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-outline-primary" href="{{ path('app_tournament_new') }}">
+                    Создать турнир
+                </a>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Название</th>
+                        <th>Дата</th>
+                        <th width="240px">Action</th>
+                    </tr>
+                    {% for tournament in tournaments %}
+                        <tr>
+                            <td>{{ tournament.name }}</td>
+                            <td>{{ tournament.date ? tournament.date|date('Y-m-d') : '' }}</td>
+                            <td>
+                                <form method="post" action="{{ path('app_tournament_delete', {'id': tournament.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                    <a
+                                            class="btn btn-outline-info"
+                                            href="{{ path('app_tournament_show', {'id': tournament.id}) }}">
+                                        Show
+                                    </a>
+                                    <a
+                                            class="btn btn-outline-success"
+                                            href="{{ path('app_tournament_edit', {'id': tournament.id}) }}">
+                                        Edit
+                                    </a>
+
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tournament.id) }}">
+                                    <button class="btn btn-outline-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

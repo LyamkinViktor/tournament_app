@@ -27,10 +27,7 @@ class TeamController extends AbstractController
             $request->query->getInt('page', 1),
             3
         );
-        //пагинация
-//        return $this->render('team/index.html.twig', [
-//            'teams' => $teamRepository->createQueryBuilder()->getQuery(),
-//        ]);
+
         return $this->render('team/index.html.twig', [
             'pagination' => $pagination,
         ]);

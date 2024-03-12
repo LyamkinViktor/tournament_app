@@ -27,7 +27,7 @@ class Tournament
     /**
      * @ORM\ManyToMany(targetEntity=Team::class, inversedBy="tournaments")
      */
-    private ArrayCollection $teams;
+    private Collection $teams;
 
     /**
      * @ORM\Column(type="datetime")

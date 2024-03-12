@@ -43,6 +43,7 @@ class TeamRepository extends ServiceEntityRepository
     public function findAllQuery(): Query
     {
         return $this->createQueryBuilder('t')
+            ->select(['t.id, t.name'])
             ->orderBy('t.id', 'ASC')
             ->getQuery();
     }

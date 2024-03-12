@@ -27,7 +27,7 @@ class Team
     /**
      * @ORM\ManyToMany(targetEntity=Tournament::class, mappedBy="team")
      */
-    private ArrayCollection $tournaments;
+    private Collection $tournaments;
 
     public function __construct()
     {
@@ -76,5 +76,10 @@ class Team
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getName() ?? '-';
     }
 }

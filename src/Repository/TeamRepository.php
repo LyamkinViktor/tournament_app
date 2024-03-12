@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Team;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -37,6 +38,13 @@ class TeamRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findAllQuery(): Query
+    {
+        return $this->createQueryBuilder('t')
+            ->orderBy('t.id', 'ASC')
+            ->getQuery();
     }
 
 //    /**

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Team;
 use App\Form\TeamType;
 use App\Repository\TeamRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +19,20 @@ class TeamController extends AbstractController
     /**
      * @Route("/", name="app_team_index", methods={"GET"})
      */
-    public function index(TeamRepository $teamRepository): Response
+    public function index(TeamRepository $teamRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $teamsQuery = $teamRepository->findAllQuery();
+        $pagination = $paginator->paginate(
+            $teamsQuery,
+            $request->query->getInt('page', 1),
+            3
+        );
+        //пагинация
+//        return $this->render('team/index.html.twig', [
+//            'teams' => $teamRepository->createQueryBuilder()->getQuery(),
+//        ]);
         return $this->render('team/index.html.twig', [
-            'teams' => $teamRepository->findAll(),
+            'pagination' => $pagination,
         ]);
     }
 

@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="text-center mt-5 mb-3">Список команд</h2>
+        <h2 class="text-center mt-5 mb-3">Редактор команд</h2>
         <div class="card">
             <div class="card-header">
                 <a class="btn btn-outline-primary" href="{{ path('app_team_new') }}">
@@ -46,23 +46,6 @@
                 <div class="navigation">
                     {{ knp_pagination_render(pagination) }}
                 </div>
-{#                <nav aria-label="Page navigation example">#}
-{#                    <ul class="pagination">#}
-{#                        <li class="page-item">#}
-{#                            <a class="page-link" href="#" aria-label="Previous">#}
-{#                                <span aria-hidden="true">&laquo;</span>#}
-{#                            </a>#}
-{#                        </li>#}
-{#                        <li class="page-item"><a class="page-link" href="#">1</a></li>#}
-{#                        <li class="page-item"><a class="page-link" href="#">2</a></li>#}
-{#                        <li class="page-item"><a class="page-link" href="#">3</a></li>#}
-{#                        <li class="page-item">#}
-{#                            <a class="page-link" href="#" aria-label="Next">#}
-{#                                <span aria-hidden="true">&raquo;</span>#}
-{#                            </a>#}
-{#                        </li>#}
-{#                    </ul>#}
-{#                </nav>#}
             </div>
         </div>
     </div>

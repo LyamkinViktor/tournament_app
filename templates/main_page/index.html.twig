@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Список турниров{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Список турниров</h2>
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Название</th>
+                        <th>Дата</th>
+                    </tr>
+                    {% for tournament in pagination %}
+                        <tr>
+                            <td><a href="{{ path('app_tournament_show', {'id': tournament.id}) }}">{{ tournament.name }}</a></td>
+                            <td>{{ tournament.date ? tournament.date|date('Y-m-d') : '' }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

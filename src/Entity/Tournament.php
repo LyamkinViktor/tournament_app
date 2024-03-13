@@ -32,7 +32,12 @@ class Tournament
     /**
      * @ORM\Column(type="datetime")
      */
-    private $date;
+    private ?\DateTimeInterface $dateFrom;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private ?\DateTimeInterface $dateTo;
 
     public function __construct()
     {
@@ -90,5 +95,25 @@ class Tournament
         $this->date = $date;
 
         return $this;
+    }
+
+    public function getDateFrom(): ?\DateTimeInterface
+    {
+        return $this->dateFrom;
+    }
+
+    public function setDateFrom(?\DateTimeInterface $dateFrom): void
+    {
+        $this->dateFrom = $dateFrom;
+    }
+
+    public function getDateTo(): ?\DateTimeInterface
+    {
+        return $this->dateTo;
+    }
+
+    public function setDateTo(?\DateTimeInterface $dateTo): void
+    {
+        $this->dateTo = $dateTo;
     }
 }

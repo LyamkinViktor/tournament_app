@@ -14,8 +14,10 @@
             <div class="card-body">
                 <b class="text-muted">Название:</b>
                 <p>{{ tournament.name }}</p>
-                <b class="text-muted">Дата:</b>
-                <p>{{ tournament.date ? tournament.date|date('Y-m-d') : '' }}</p>
+                <b class="text-muted">Начало турнира:</b>
+                <p>{{ tournament.dateFrom ? tournament.dateFrom|date('Y-m-d') : '' }}</p>
+                <b class="text-muted">Конец турнира:</b>
+                <p>{{ tournament.dateTo ? tournament.dateTo|date('Y-m-d') : '' }}</p>
                 <b class="text-muted">Команды:</b>
                 {% for team in tournament.teams %}
                     <p>{{ team.name }}</p>

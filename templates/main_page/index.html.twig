@@ -10,12 +10,14 @@
                 <table class="table table-bordered">
                     <tr>
                         <th>Название</th>
-                        <th>Дата</th>
+                        <th>Начало турнира</th>
+                        <th>Конец турнира</th>
                     </tr>
                     {% for tournament in pagination %}
                         <tr>
                             <td><a href="{{ path('app_tournament_show', {'id': tournament.id}) }}">{{ tournament.name }}</a></td>
-                            <td>{{ tournament.date ? tournament.date|date('Y-m-d') : '' }}</td>
+                            <td>{{ tournament.dateFrom ? tournament.dateFrom|date('Y-m-d') : '' }}</td>
+                            <td>{{ tournament.dateTo ? tournament.dateTo|date('Y-m-d') : '' }}</td>
                         </tr>
                     {% endfor %}
                 </table>

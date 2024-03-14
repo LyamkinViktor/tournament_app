@@ -11,6 +11,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MainPageController extends AbstractController
 {
+    private int $tournamentsPerPage = 3;
+
     /**
      * @Route("/", name="app_main_page")
      */
@@ -21,7 +23,7 @@ class MainPageController extends AbstractController
         $pagination = $paginator->paginate(
             $tournamentsQuery,
             $request->query->getInt('page', 1),
-            3
+            $this->tournamentsPerPage
         );
 
         return $this->render('main_page/index.html.twig', [

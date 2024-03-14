@@ -16,6 +16,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TeamController extends AbstractController
 {
+    private int $teamsPerPage = 3;
+
     /**
      * @Route("/", name="app_team_index", methods={"GET"})
      */
@@ -25,7 +27,7 @@ class TeamController extends AbstractController
         $pagination = $paginator->paginate(
             $teamsQuery,
             $request->query->getInt('page', 1),
-            3
+            $this->teamsPerPage
         );
 
         return $this->render('team/index.html.twig', [

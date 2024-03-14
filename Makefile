@@ -13,6 +13,8 @@ up:
 
 up-build:
 	docker-compose up -d --build
+	docker-compose exec -T php composer install --no-scripts
+	docker-compose exec -T php php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
 
 start:
 	docker-compose start

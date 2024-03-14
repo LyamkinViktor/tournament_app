@@ -14,14 +14,30 @@
             <div class="card-body">
                 <b class="text-muted">Название:</b>
                 <p>{{ tournament.name }}</p>
-                <b class="text-muted">Начало турнира:</b>
-                <p>{{ tournament.dateFrom ? tournament.dateFrom|date('Y-m-d') : '' }}</p>
-                <b class="text-muted">Конец турнира:</b>
-                <p>{{ tournament.dateTo ? tournament.dateTo|date('Y-m-d') : '' }}</p>
-                <b class="text-muted">Команды:</b>
-                {% for team in tournament.teams %}
-                    <p>{{ team.name }}</p>
-                {% endfor %}
+
+{#                Турнирная таблица#}
+                <b class="text-muted">Турнирная таблица:</b>
+
+                <p>
+                    {% for key, date in standings %}
+                        <p style="color: darkgreen">
+                            {{ key }}:
+                        </p>
+                            {% for game in date %}
+                                <p>
+                                    {% set i = 1 %}
+                                    {% for team in game %}
+                                        {% if i == 1 %}
+                                            {{ team }} :
+                                        {% else %}
+                                            {{ team }}
+                                        {% endif %}
+                                        {% set i = 2 %}
+                                    {% endfor %}
+                                </p>
+                            {% endfor %}
+                    {% endfor %}
+                </p>
             </div>
         </div>
     </div>

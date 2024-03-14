@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Tournament;
 use App\Form\TournamentType;
 use App\Repository\TournamentRepository;
+use App\Service\StandingsGenerator;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,14 +30,30 @@ class TournamentController extends AbstractController
     /**
      * @Route("/new", name="app_tournament_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, TournamentRepository $tournamentRepository): Response
-    {
+    public function new(
+        Request $request,
+        TournamentRepository $tournamentRepository,
+        StandingsGenerator $standingsGenerator,
+        ManagerRegistry $doctrine
+    ): Response {
         $tournament = new Tournament();
         $form = $this->createForm(TournamentType::class, $tournament);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $tournamentRepository->add($tournament, true);
+
+            $tournamentTeams = $tournament->getTeams();
+            $teamsList = [];
+            foreach ($tournamentTeams as $tournamentTeam) {
+                $teamsList[] = $tournamentTeam->getName();
+            }
+
+            $standings = $standingsGenerator->generateStandings($teamsList);
+            $tournament->setStandings($standings);
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($tournament);
+            $entityManager->flush();
 
             return $this->redirectToRoute('app_tournament_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -53,6 +71,7 @@ class TournamentController extends AbstractController
     {
         return $this->render('tournament/show.html.twig', [
             'tournament' => $tournament,
+            'standings' => $tournament->getStandings(),
         ]);
     }
 

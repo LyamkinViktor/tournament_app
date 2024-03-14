@@ -2,6 +2,11 @@ version: '3.0'
 
 services:
   php:
+    environment:
+      XDEBUG_CONFIG: "remote_host=host.docker.internal remote_enable=1"
+      PHP_IDE_CONFIG: "serverName=Docker"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     build:
       context: .docker/php
     restart: always
@@ -13,6 +18,8 @@ services:
       - db
     networks:
       - symfony_app
+    expose:
+      - "9000"
 
   nginx:
     build:
@@ -43,7 +50,7 @@ services:
 
 networks:
   symfony_app:
-#    driver: bridge
+    driver: bridge
 #volumes:
 ###> doctrine/doctrine-bundle ###
 #  database_data:

@@ -3,12 +3,6 @@
     {{ form_row(form.name, {'attr': {'class': 'form-control'}}) }}
 </div>
 <div class="form-group">
-    {{ form_row(form.dateFrom, {'attr': {'class': 'form-control'}}) }}
-</div>
-<div class="form-group">
-    {{ form_row(form.dateTo, {'attr': {'class': 'form-control'}}) }}
-</div>
-<div class="form-group">
     {{ form_row(form.teams, {'attr': {'class': 'form-control'}}) }}
 </div>
 <button class="btn {{ button_color|default('btn-outline-primary') }}  mt-3">{{ button_label|default('Сохранить турнир') }}</button>

@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\Tournament;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,14 +17,6 @@ class TournamentType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Название',
-            ])
-            ->add('dateFrom', DateType::class, [
-                'widget' => 'single_text',
-                'label' => 'Начало турнира',
-            ])
-            ->add('dateTo', DateType::class, [
-                'widget' => 'single_text',
-                'label' => 'Конец турнира',
             ])
             ->add('teams', EntityType::class, [
                 'class' => Team::class,

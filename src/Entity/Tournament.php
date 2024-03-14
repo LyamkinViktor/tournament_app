@@ -30,14 +30,9 @@ class Tournament
     private Collection $teams;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="json", nullable=true)
      */
-    private ?\DateTimeInterface $dateFrom;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private ?\DateTimeInterface $dateTo;
+    private $standings = [];
 
     public function __construct()
     {
@@ -85,35 +80,15 @@ class Tournament
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getStandings(): ?array
     {
-        return $this->date;
+        return $this->standings;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setStandings(?array $standings): self
     {
-        $this->date = $date;
+        $this->standings = $standings;
 
         return $this;
-    }
-
-    public function getDateFrom(): ?\DateTimeInterface
-    {
-        return $this->dateFrom;
-    }
-
-    public function setDateFrom(?\DateTimeInterface $dateFrom): void
-    {
-        $this->dateFrom = $dateFrom;
-    }
-
-    public function getDateTo(): ?\DateTimeInterface
-    {
-        return $this->dateTo;
-    }
-
-    public function setDateTo(?\DateTimeInterface $dateTo): void
-    {
-        $this->dateTo = $dateTo;
     }
 }
